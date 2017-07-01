@@ -146,7 +146,7 @@
 					</a>
 				</li>
 				<li class="last ">
-					<a href="charts.html">
+					<a href="/courseManager">
 					<i class="fa fa-file-text"></i>
 					<span class="title">
 						课程管理

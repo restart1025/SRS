@@ -43,7 +43,7 @@ public interface ProfessorDao {
 	Professor selectProfessorBySsn(@Param("ssn") String ssn);
 
 	@Delete("delete from professor where ssn=#{ssn}")
-	void deleteProfessor(String ssn);
+	void deleteProfessor(@Param("ssn") String ssn);
 	
 	@Insert("insert into professor (ssn,department,title,name) values(#{ssn},#{department},#{title},#{name})")
 	void insertProfessor(Professor professor);

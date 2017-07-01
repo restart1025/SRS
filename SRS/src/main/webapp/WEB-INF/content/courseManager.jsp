@@ -10,7 +10,7 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>选课系统</title>
+<title>课程管理</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="" name="description"/>
@@ -24,6 +24,8 @@
 <!-- BEGIN PAGE LEVEL STYLES -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/select2/select2_metro.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/data-tables/DT_bootstrap.css"/>
+<link href="${pageContext.request.contextPath}/assets/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+<link href="${pageContext.request.contextPath}/assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="${pageContext.request.contextPath}/assets/css/style-metronic.css" rel="stylesheet" type="text/css"/>
@@ -116,7 +118,7 @@
 					</div>
 					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
 				</li>
-				<li class="start active ">
+				<li class="start">
 					<a href="/index">
 					<i class="fa fa-home"></i>
 					<span class="title">
@@ -150,7 +152,7 @@
 					</span>
 					</a>
 				</li>
-				<li class="last ">
+				<li class="last active">
 					<a href="/courseManager">
 					<i class="fa fa-file-text"></i>
 					<span class="title">
@@ -181,7 +183,7 @@
 							<i class="fa fa-angle-right"></i>
 						</li>
 						<li>
-							<a href="/index">学生选课</a>
+							<a href="/courseManager">课程管理</a>
 						</li>
 						<li class="pull-right">
 							<div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
@@ -205,8 +207,81 @@
 			<!-- END DASHBOARD STATS -->
 			<div class="clearfix">
 			</div>
-			<div id="dialog">
-				<table id="showSectionStudent"></table>
+			<div id="btn">
+				<a id="btn-add" type="button" data-toggle="modal" href="#responsive" class="btn btn-primary">添加</a>
+				<button id="btn-remove" type="button" class="btn btn-primary" onclick="deleteProfessor()">删除</button>
+				<button id="btn-edit" type="button" class="btn btn-primary" onclick="editProfessor()">修改</button>
+			</div>
+			<!-- responsive -->
+			<div id="responsive" class="modal fade" tabindex="-1" data-width="760">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">添加教师</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<!-- BEGIN FORM-->
+						<form id="professorForm" class="form-horizontal form-row-seperated">
+							<div class="form-body">
+								<div class="form-group">
+									<label class="control-label col-md-3">姓名：</label>
+									<div class="col-md-9">
+										<input type="text" id="name" name="name" placeholder="请输入姓名" class="form-control"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-3">教师编号：</label>
+									<div class="col-md-9">
+										<input id="ssn" name="ssn" type="text" placeholder="请输入教师编号" class="form-control"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-3">职称：</label>
+									<div class="col-md-9">
+										<select id="title" class="form-control" name="title">
+											<option value="教授">教授</option>   
+										    <option>副教授</option>   
+										    <option>讲师</option>   
+										    <option>助教</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group last">
+									<label class="control-label col-md-3">所属学院：</label>
+									<div class="col-md-9">
+										<select id="department" class="form-control" name="department">
+										    <option value="管理学院">管理学院</option>
+											<option>能源、材料与物理学部</option>   
+										    <option>矿业工程学院</option>   
+										    <option>安全工程学院</option>   
+										    <option>力学与土木工程学院</option>
+										    <option>机电工程学院</option>
+										    <option>信息与控制工程学院</option>
+										    <option>资源与地球科学学院</option>
+										    <option>化工学院</option>
+										    <option>环境与测绘学院</option>
+										    <option>电气与动力工程学院</option>
+										    <option>数学学院</option>
+										    <option>计算机科学与技术学院</option>
+										    <option>公共管理学院</option>
+										    <option>马克思主义学院</option>
+										    <option>外国语言文化学院</option>
+						    				<option>建筑与设计学院</option>
+						    				<option>体育学院</option>
+						    				<option>孙越崎学院</option>
+						    				<option>国际学院  </option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</form>
+						<!-- END FORM-->
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="cancelTeacher" type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+					<button id="addTeacher" type="button" class="btn blue">保存</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -242,9 +317,12 @@
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/select2/select2.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="${pageContext.request.contextPath}/assets/scripts/app.js"></script>
+<script src="${pageContext.request.contextPath}/assets/scripts/ui-extended-modals.js"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
@@ -258,24 +336,18 @@
 <!-- sweetalert弹出框的js样式 -->
 <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 
-<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.form/4.2.1/jquery.form.min.js"></script>
 
 <script>
 	jQuery(document).ready(function() {    
 	   App.init(); // initlayout and core plugins
+	   UIExtendedModals.init();
 	});
 	$(function(){
-		$( "#dialog" ).dialog({
-		    autoOpen: false,
-		    width: 400,
-		    height: 500,
-			title : '已选学生',
-		    modal: true
-		});
 		$('#table').bootstrapTable({
-			url:"${pageContext.request.contextPath}/querySection",
+			url:"${pageContext.request.contextPath}/queryCourse",
 			method:'post',
-			idField:'sectionSn',
+            toolbar:'#btn',
 			striped:true,		//隔行变色
 			singleSelect:true,	//禁止多选
 			clickToSelect:true,	//点击行时，自动选择
@@ -291,94 +363,169 @@
 // 			pageList:[10, 25, 50, 100, 'All'],
 			dataField : 'rows',
 			totalField : 'total',
-			columns: [{
-				checkbox: true
-			}, {
-				field: 'sectionNo',
-				title: '课程编号'
-			}, {
-				field: 'name',
-				title: '课程'
-			}, {
-				field: 'teacher',
-				title: '教师'
-			}, {
-				field: 'time',
-				title: '时间'
-			}, {
-				field: 'day',
-				title: '周次'
-			}, {
-				field: 'room',
-				title: '教室'
-			}, {
-				field: 'capacity',
-				title: '容量'
-			}, {
-				field: 'credits',
-				title: '学分'
-			}, {
-				field: 'select_btn',
-				title: '选课',
-				align: 'center',
-				formatter: function(value, row, index){
-					return "<button type='button' class='btn btn-primary' onclick=selectSection("+row.sectionNo+",'"+row.name+"'"+")>选课</button>";
-				}
-			}, {
-				field: 'query_btn',
-				title: '查看已选学生',
-				align: 'center',
-				formatter: function(value, row, index){
-					return "<button type='button' class='btn btn-primary' onclick=queryEnrolledStudents("+row.sectionNo+")>查看</button>";
-				}
-			}]
-		});
-		$('#showSectionStudent').bootstrapTable({
-			method:'post',
-			idField:'ssn',
-			contentType:'application/x-www-form-urlencoded',
-			striped:true,		//隔行变色
-			singleSelect:true,	//禁止多选
-			dataField : 'rows',
-			totalField : 'total',
 			columns: [
-				{field:'ssn',title:'学号',width:100}, 
-				{field:'name',title:'姓名',width:100},
-				{field:'degree',title:'年级',width:100}, 
-				{field:'major',title:'专业',width:100}
+		    	{checkbox: true},
+		        {field:'name',title:'课程名称',width:100,align:'center'},    
+		        {field:'credits',title:'学分',width:100,align:'center'}
 			]
 		});
-	
-	})
-	function selectSection(sectionNo,name){
-		var textValue="你确定选择"+name+"这门课程吗？"
-		swal({
-			  title: "系统提示",
-			  text: textValue,
-			  type: "info",
-			  showCancelButton: true,
-			  closeOnConfirm: false,
-			  confirmButtonText: "确定",
-			  cancelButtonText: "取消",
-			  showLoaderOnConfirm: true,
-			},
-			function(){
-				$.ajax({
-				      url:'${pageContext.request.contextPath}/selectSection',
-				      data:{'sectionNo':sectionNo}, 
-				      method:'POST',
-				      success:function(res){
-				    	  $('#table').bootstrapTable('refresh');
-				    	  swal(res);
-				      }						    
-				})
+		$('#addTeacher').bind("click", function(){
+			var name=$("#name").val();
+    		var ssn = $("#ssn").val();
+    		var title=$("#title").val();
+    		var department=$("#department").val();
+    		if(name==""){
+    			swal("系统提示", "姓名不可为空")
+    		}else if(ssn==""){
+    			swal("系统提示", "工号不可为空")
+    		}else if(title==""){
+    			swal("系统提示", "职称不可为空")
+    		}else if(department==""){
+    			swal("系统提示", "学院不可为空")
+    		}else{
+                $("#professorForm").ajaxSubmit({
+                	url: 'addProfessor', 
+                    type: "post", 
+                    dataType: "json",
+                    success: function () {
+                    	$('#cancelTeacher').click();
+                    	swal("系统提示", "添加成功！")
+                    	$('#table').bootstrapTable('refresh');
+                    	document.getElementById("professorForm").reset(); 
+                    }
+                   
+                });
+    		}
 		});
+	
+	});
+	function deleteProfessor()
+	{
+		var row = $('#table').bootstrapTable('getSelections');
+		if( row.length == 1 )
+		{
+			swal({
+				  title: "系统提示",
+				  text: "你确定要删除教师吗？",
+				  type: "info",
+				  showCancelButton: true,
+				  closeOnConfirm: false,
+				  confirmButtonText: "确定",
+				  cancelButtonText: "取消",
+				  showLoaderOnConfirm: true,
+				},
+				function()
+				{
+					$.ajax({
+					      url:'${pageContext.request.contextPath}/deleteProfessor',
+					      data:{'ssn':row[0].ssn},
+					      method:'POST',
+					      success:function(){
+					    	  $('#table').bootstrapTable('refresh');
+					    	  swal('提示信息','删除成功');
+					      }						    
+					})
+			});
+		}
+		else
+		{
+			swal('请选择一行数据！');
+		}
 	};
-	function queryEnrolledStudents(sectionNo){
-		var url = "${pageContext.request.contextPath}/queryEnrolledStudents";
-		$('#showSectionStudent').bootstrapTable('refresh',{url: url, query: {sectionNo: sectionNo}});
-		$( "#dialog" ).dialog( "open" );
-	};
+	//可回显数据，但是执行添加方法
+	function editProfessor()
+	{
+		var rows = $('#table').bootstrapTable('getSelections');
+		
+		if( rows.length == 1 )
+		{
+			var obj = rows[0];
+			loadData(obj);
+			$('#btn-add').click();
+			
+		}
+		else
+		{
+			swal('请选择一行数据！');
+		}
+		
+// 		$('#zsg').dialog({
+// 			title:'修改教师资料',
+// 			width:400,
+// 			height: 400,
+// 			closed: false,    
+// 		    cache: false,
+// 		    modal:true,
+// 		    buttons:[{
+// 		    	text:'保存',
+// 		    	iconCls:'icon-ok',
+// 		    	handler:function(){
+// 		    		var name=$("#name").val();
+// 		    		var ssn = $("#ssn").val();
+// 		    		var title=$("#title").val();
+// 		    		var department=$("#department").val();
+// 		    		if(name==""){
+// 		    			$.messager.alert('警告','姓名不可为空');
+// 		    		}else if(ssn==""){
+// 		    			$.messager.alert('警告','工号不可为空');	
+// 		    		}else if(title==""){
+// 		    			$.messager.alert('警告','职称不可为空');	
+// 		    		}else if(department==""){
+// 		    			$.messager.alert('警告','学院不可为空');	
+// 		    		}else{
+//     	                $("#professor").ajaxSubmit({
+//     	                	url: 'updateProfessor', 
+//     	                    type: "post", 
+//     	                    success: function (data) {
+//     	                    	console.log(data)
+//     	                    	$('#zsg').dialog({closed: true});
+//     	                    	$.messager.alert('完成','修改成功！');	
+//     	                    	$('#dg').datagrid( 'reload'); 
+//     	                    }
+    	                   
+//     	                });
+// 		    		}
+// 		    	}
+// 		    },{
+// 		    	text:'关闭',
+// 		    	iconCls:'icon-cancel',
+// 		    	handler:function(){
+// 		    		$('#zsg' ).dialog({closed: true});
+// 		    	}
+// 		    }]
+// 		})
+	}
+	function loadData(jsonStr){
+		var obj = jsonStr;
+		var key,value,tagName,type,arr;
+		for(x in obj){
+			key = x;
+			value = obj[x];
+			
+			$("[name='"+key+"'],[name='"+key+"[]']").each(function(){
+				tagName = $(this)[0].tagName;
+				type = $(this).attr('type');
+				if(tagName=='INPUT'){
+					if(type=='radio'){
+						$(this).attr('checked',$(this).val()==value);
+					}else if(type=='checkbox'){
+						arr = value.split(',');
+						for(var i =0;i<arr.length;i++){
+							if($(this).val()==arr[i]){
+								$(this).attr('checked',true);
+								break;
+							}
+						}
+					}else{
+						$(this).val(value);
+					}
+				}else if(tagName=='SELECT' || tagName=='TEXTAREA'){
+					$(this).val(value);
+				}
+				
+			});
+		}
+	}
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

@@ -21,20 +21,20 @@ public class CourseController {
 	@Autowired
 	private CourseService courseService;
 	
-	@RequestMapping(value="queryCourse")
+	@RequestMapping(value="/queryCourse")
 	@ResponseBody
 	public Object queryCourse(){
 		List<HashMap<String, String>> result=courseService.queryCourse();
 		return result;
 	}
-	@RequestMapping(value="queryPrevCourse")
+	@RequestMapping(value="/queryPrevCourse")
 	@ResponseBody
 	public Object queryPrevCourse(String number){
 		List<HashMap<String, String>> result=new ArrayList<HashMap<String ,String>>();
 		result=courseService.queryPrevCourse(number);
 		return result;
 	}
-	@RequestMapping(value="addCourse")
+	@RequestMapping(value="/addCourse")
 	@ResponseBody
 	public boolean addCourse(@Param("course")Course course ,@Param("prevCourseNum")String prevCourseNum){
 		System.out.println(prevCourseNum);
@@ -57,7 +57,7 @@ public class CourseController {
 		boolean result=courseService.addCourse(course);
 		return result;
 	}
-	@RequestMapping(value="deleteCourse")
+	@RequestMapping(value="/deleteCourse")
 	@ResponseBody
 	public boolean deleteCourse(String number){
 		boolean result=courseService.deleteCourse(number);

@@ -18,35 +18,37 @@ import com.github.restart1025.srs.service.ProfessorService;
  */
 @Controller
 public class ProfessorController {
+	
 	@Autowired
 	@Qualifier("professorService")
 	private ProfessorService professorService;
-	@RequestMapping(value="addProfessor")
+	
+	@RequestMapping(value="/addProfessor")
 	@ResponseBody
 	public boolean addProfessor(@ModelAttribute Professor professor){
 		boolean result=professorService.addProfessor(professor);		
 		return result;
 	}
-	@RequestMapping(value="queryProfessor")
+	
+	@RequestMapping(value="/queryProfessor")
 	@ResponseBody
 	public  Object queryProfessor(){
 		List<Professor> result=professorService.queryProfessor();
 		return result;
 	}
-	@RequestMapping(value="deleteProfessor")
+	
+	@RequestMapping(value="/deleteProfessor")
 	@ResponseBody
-	public ModelAndView deleteProfessor(String ssn,ModelAndView mv){
+	public boolean deleteProfessor(String ssn,ModelAndView mv){
 		boolean result=professorService.deleteProfessor(ssn);
-		mv.setViewName("professorManager");
-		mv.addObject("result", result);
-		return mv;
+		return result;
 	}
-	@RequestMapping(value="updateProfessor")
-	public ModelAndView updateProfessor(ModelAndView mv,
+	
+	@RequestMapping(value="/updateProfessor")
+	@ResponseBody
+	public boolean updateProfessor(ModelAndView mv,
 			@ModelAttribute Professor professor){
 		boolean result=professorService.updateProfessor(professor);
-		mv.setViewName("professorManager");
-		mv.addObject("result", result);
-		return mv;
+		return result;
 	}
 }
