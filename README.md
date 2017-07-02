@@ -4,6 +4,13 @@
 ## 项目结构
 ![项目结构截图](Image/project.png)
 
+## ER图
+![ER图](Image/er.png)
+
+## 系统领域类图
+![ER图](Image/diagram.png)
+
+
 ## 登录
 ![登录界面截图](Image/login.png)
 
