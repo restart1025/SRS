@@ -65,16 +65,16 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<img alt="" src="${pageContext.request.contextPath}/assets/img/avatar1_small.jpg"/>
 					<span class="username">
-						蒋宇森
+						${ sessionScope.student.name }
 					</span>
 					<i class="fa fa-angle-down"></i>
 				</a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="extra_profile.html"><i class="fa fa-user"></i> 个人信息</a>
+						<a href="#"><i class="fa fa-user"></i> 个人信息</a>
 					</li>
 					<li>
-						<a href="inbox.html"><i class="fa fa-envelope"></i> 我的消息
+						<a href="#"><i class="fa fa-envelope"></i> 我的消息
 						<span class="badge badge-danger">
 							3
 						</span>
@@ -135,7 +135,7 @@
 					</a>
 				</li>
 				<li class="">
-					<a href="charts.html">
+					<a href="/planOfStudy">
 					<i class="fa fa-table"></i>
 					<span class="title">
 						教学计划
@@ -151,7 +151,7 @@
 					</a>
 				</li>
 				<li class="last ">
-					<a href="charts.html">
+					<a href="/courseManager">
 					<i class="fa fa-file-text"></i>
 					<span class="title">
 						课程管理

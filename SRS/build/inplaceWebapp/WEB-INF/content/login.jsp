@@ -113,7 +113,7 @@
 		
 		<!-- BEGIN COPYRIGHT -->
 		<div class="copyright">
-			 2017 &copy; Metronic - Admin Dashboard Template.
+			 2017 &copy; 管理学院电子商务专业选课系统.
 		</div>
 		<!-- END COPYRIGHT -->
 		

@@ -39,7 +39,7 @@ public class SelectSectionController {
 	public ModelAndView login(String ssn, String password, ModelAndView mv,
 			 HttpSession session){
 		
-		student = loginService.studentLogin(ssn,password);
+		student = loginService.studentLogin(ssn, password);
 		
 		if(student != null)
 		{

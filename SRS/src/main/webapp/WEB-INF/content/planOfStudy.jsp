@@ -67,16 +67,16 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<img alt="" src="${pageContext.request.contextPath}/assets/img/avatar1_small.jpg"/>
 					<span class="username">
-						蒋宇森
+						${ sessionScope.student.name }
 					</span>
 					<i class="fa fa-angle-down"></i>
 				</a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="extra_profile.html"><i class="fa fa-user"></i> 个人信息</a>
+						<a href="#"><i class="fa fa-user"></i> 个人信息</a>
 					</li>
 					<li>
-						<a href="inbox.html"><i class="fa fa-envelope"></i> 我的消息
+						<a href="#"><i class="fa fa-envelope"></i> 我的消息
 						<span class="badge badge-danger">
 							3
 						</span>
@@ -136,8 +136,8 @@
 					</span>
 					</a>
 				</li>
-				<li class="">
-					<a href="charts.html">
+				<li class="active">
+					<a href="/planOfStudy">
 					<i class="fa fa-table"></i>
 					<span class="title">
 						教学计划
@@ -152,7 +152,7 @@
 					</span>
 					</a>
 				</li>
-				<li class="last active">
+				<li class="last">
 					<a href="/courseManager">
 					<i class="fa fa-file-text"></i>
 					<span class="title">
@@ -183,7 +183,7 @@
 							<i class="fa fa-angle-right"></i>
 						</li>
 						<li>
-							<a href="/courseManager">课程管理</a>
+							<a href="/planOfStudy">教学计划</a>
 						</li>
 						<li class="pull-right">
 							<div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
@@ -208,8 +208,8 @@
 			<div class="clearfix">
 			</div>
 			<div id="btn">
-				<a id="btn-add" type="button" data-toggle="modal" href="#responsive" class="btn btn-primary">添加</a>
-				<button id="btn-remove" type="button" class="btn btn-primary" onclick="deleteCourse()">删除</button>
+<!-- 				<a id="btn-add" type="button" data-toggle="modal" href="#responsive" class="btn btn-primary">添加</a> -->
+<!-- 				<button id="btn-remove" type="button" class="btn btn-primary" onclick="deleteCourse()">删除</button> -->
 			</div>
 			<!-- responsive -->
 			<div id="responsive" class="modal fade" tabindex="-1" data-width="760">
@@ -312,7 +312,7 @@
 	});
 	$(function(){
 		$('#table').bootstrapTable({
-			url:"${pageContext.request.contextPath}/queryCourse",
+			url:"${pageContext.request.contextPath}/queryPlanOfStudy",
 			method:'post',
             toolbar:'#btn',
 			striped:true,		//隔行变色
