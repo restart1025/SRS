@@ -209,68 +209,35 @@
 			</div>
 			<div id="btn">
 				<a id="btn-add" type="button" data-toggle="modal" href="#responsive" class="btn btn-primary">添加</a>
-				<button id="btn-remove" type="button" class="btn btn-primary" onclick="deleteProfessor()">删除</button>
-				<button id="btn-edit" type="button" class="btn btn-primary" onclick="editProfessor()">修改</button>
+				<button id="btn-remove" type="button" class="btn btn-primary" onclick="deleteCourse()">删除</button>
 			</div>
 			<!-- responsive -->
 			<div id="responsive" class="modal fade" tabindex="-1" data-width="760">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">添加教师</h4>
+					<h4 class="modal-title">添加课程</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 						<!-- BEGIN FORM-->
-						<form id="professorForm" class="form-horizontal form-row-seperated">
+						<form id="courseForm" class="form-horizontal form-row-seperated">
 							<div class="form-body">
 								<div class="form-group">
-									<label class="control-label col-md-3">姓名：</label>
+									<label class="control-label col-md-3">课程编号：</label>
 									<div class="col-md-9">
-										<input type="text" id="name" name="name" placeholder="请输入姓名" class="form-control"/>
+										<input type="text" id="number" name="number" placeholder="请输入课程编号" class="form-control"/>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-md-3">教师编号：</label>
+									<label class="control-label col-md-3">课程名称：</label>
 									<div class="col-md-9">
-										<input id="ssn" name="ssn" type="text" placeholder="请输入教师编号" class="form-control"/>
+										<input id="name" name="name" type="text" placeholder="请输入课程名称" class="form-control"/>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-md-3">职称：</label>
+									<label class="control-label col-md-3">学分：</label>
 									<div class="col-md-9">
-										<select id="title" class="form-control" name="title">
-											<option value="教授">教授</option>   
-										    <option>副教授</option>   
-										    <option>讲师</option>   
-										    <option>助教</option>
-										</select>
-									</div>
-								</div>
-								<div class="form-group last">
-									<label class="control-label col-md-3">所属学院：</label>
-									<div class="col-md-9">
-										<select id="department" class="form-control" name="department">
-										    <option value="管理学院">管理学院</option>
-											<option>能源、材料与物理学部</option>   
-										    <option>矿业工程学院</option>   
-										    <option>安全工程学院</option>   
-										    <option>力学与土木工程学院</option>
-										    <option>机电工程学院</option>
-										    <option>信息与控制工程学院</option>
-										    <option>资源与地球科学学院</option>
-										    <option>化工学院</option>
-										    <option>环境与测绘学院</option>
-										    <option>电气与动力工程学院</option>
-										    <option>数学学院</option>
-										    <option>计算机科学与技术学院</option>
-										    <option>公共管理学院</option>
-										    <option>马克思主义学院</option>
-										    <option>外国语言文化学院</option>
-						    				<option>建筑与设计学院</option>
-						    				<option>体育学院</option>
-						    				<option>孙越崎学院</option>
-						    				<option>国际学院  </option>
-										</select>
+										<input id="credits" name="credits" type="text" placeholder="请输入学分" class="form-control"/>
 									</div>
 								</div>
 							</div>
@@ -279,8 +246,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="cancelTeacher" type="button" data-dismiss="modal" class="btn btn-default">取消</button>
-					<button id="addTeacher" type="button" class="btn blue">保存</button>
+					<button id="cancelCourse" type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+					<button id="addCourse" type="button" class="btn blue">保存</button>
 				</div>
 			</div>
 		</div>
@@ -365,33 +332,31 @@
 			totalField : 'total',
 			columns: [
 		    	{checkbox: true},
-		        {field:'name',title:'课程名称',width:100,align:'center'},    
+		        {field:'number',title:'课程编号',width:100,align:'center'},
+		        {field:'name',title:'课程名称',width:100,align:'center'},
 		        {field:'credits',title:'学分',width:100,align:'center'}
 			]
 		});
-		$('#addTeacher').bind("click", function(){
+		$('#addCourse').bind("click", function(){
 			var name=$("#name").val();
-    		var ssn = $("#ssn").val();
-    		var title=$("#title").val();
-    		var department=$("#department").val();
+    		var number = $("#number").val();
+    		var credits=$("#credits").val();
     		if(name==""){
-    			swal("系统提示", "姓名不可为空")
-    		}else if(ssn==""){
-    			swal("系统提示", "工号不可为空")
-    		}else if(title==""){
-    			swal("系统提示", "职称不可为空")
-    		}else if(department==""){
-    			swal("系统提示", "学院不可为空")
+    			swal("系统提示", "名称不可为空")
+    		}else if(number==""){
+    			swal("系统提示", "编号不可为空")
+    		}else if(credits==""){
+    			swal("系统提示", "学分不可为空")
     		}else{
-                $("#professorForm").ajaxSubmit({
-                	url: 'addProfessor', 
+                $("#courseForm").ajaxSubmit({
+                	url: '${pageContext.request.contextPath}/addCourse', 
                     type: "post", 
                     dataType: "json",
                     success: function () {
-                    	$('#cancelTeacher').click();
+                    	$('#cancelCourse').click();
                     	swal("系统提示", "添加成功！")
                     	$('#table').bootstrapTable('refresh');
-                    	document.getElementById("professorForm").reset(); 
+                    	document.getElementById("courseForm").reset(); 
                     }
                    
                 });
@@ -399,14 +364,14 @@
 		});
 	
 	});
-	function deleteProfessor()
+	function deleteCourse()
 	{
 		var row = $('#table').bootstrapTable('getSelections');
 		if( row.length == 1 )
 		{
 			swal({
 				  title: "系统提示",
-				  text: "你确定要删除教师吗？",
+				  text: "你确定要删除课程吗？",
 				  type: "info",
 				  showCancelButton: true,
 				  closeOnConfirm: false,
@@ -417,8 +382,8 @@
 				function()
 				{
 					$.ajax({
-					      url:'${pageContext.request.contextPath}/deleteProfessor',
-					      data:{'ssn':row[0].ssn},
+					      url:'${pageContext.request.contextPath}/deleteCourse',
+					      data:{'number':row[0].number},
 					      method:'POST',
 					      success:function(){
 					    	  $('#table').bootstrapTable('refresh');
@@ -432,100 +397,6 @@
 			swal('请选择一行数据！');
 		}
 	};
-	//可回显数据，但是执行添加方法
-	function editProfessor()
-	{
-		var rows = $('#table').bootstrapTable('getSelections');
-		
-		if( rows.length == 1 )
-		{
-			var obj = rows[0];
-			loadData(obj);
-			$('#btn-add').click();
-			
-		}
-		else
-		{
-			swal('请选择一行数据！');
-		}
-		
-// 		$('#zsg').dialog({
-// 			title:'修改教师资料',
-// 			width:400,
-// 			height: 400,
-// 			closed: false,    
-// 		    cache: false,
-// 		    modal:true,
-// 		    buttons:[{
-// 		    	text:'保存',
-// 		    	iconCls:'icon-ok',
-// 		    	handler:function(){
-// 		    		var name=$("#name").val();
-// 		    		var ssn = $("#ssn").val();
-// 		    		var title=$("#title").val();
-// 		    		var department=$("#department").val();
-// 		    		if(name==""){
-// 		    			$.messager.alert('警告','姓名不可为空');
-// 		    		}else if(ssn==""){
-// 		    			$.messager.alert('警告','工号不可为空');	
-// 		    		}else if(title==""){
-// 		    			$.messager.alert('警告','职称不可为空');	
-// 		    		}else if(department==""){
-// 		    			$.messager.alert('警告','学院不可为空');	
-// 		    		}else{
-//     	                $("#professor").ajaxSubmit({
-//     	                	url: 'updateProfessor', 
-//     	                    type: "post", 
-//     	                    success: function (data) {
-//     	                    	console.log(data)
-//     	                    	$('#zsg').dialog({closed: true});
-//     	                    	$.messager.alert('完成','修改成功！');	
-//     	                    	$('#dg').datagrid( 'reload'); 
-//     	                    }
-    	                   
-//     	                });
-// 		    		}
-// 		    	}
-// 		    },{
-// 		    	text:'关闭',
-// 		    	iconCls:'icon-cancel',
-// 		    	handler:function(){
-// 		    		$('#zsg' ).dialog({closed: true});
-// 		    	}
-// 		    }]
-// 		})
-	}
-	function loadData(jsonStr){
-		var obj = jsonStr;
-		var key,value,tagName,type,arr;
-		for(x in obj){
-			key = x;
-			value = obj[x];
-			
-			$("[name='"+key+"'],[name='"+key+"[]']").each(function(){
-				tagName = $(this)[0].tagName;
-				type = $(this).attr('type');
-				if(tagName=='INPUT'){
-					if(type=='radio'){
-						$(this).attr('checked',$(this).val()==value);
-					}else if(type=='checkbox'){
-						arr = value.split(',');
-						for(var i =0;i<arr.length;i++){
-							if($(this).val()==arr[i]){
-								$(this).attr('checked',true);
-								break;
-							}
-						}
-					}else{
-						$(this).val(value);
-					}
-				}else if(tagName=='SELECT' || tagName=='TEXTAREA'){
-					$(this).val(value);
-				}
-				
-			});
-		}
-	}
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

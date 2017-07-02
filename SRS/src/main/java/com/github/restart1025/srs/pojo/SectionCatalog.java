@@ -1,6 +1,5 @@
 package com.github.restart1025.srs.pojo;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 

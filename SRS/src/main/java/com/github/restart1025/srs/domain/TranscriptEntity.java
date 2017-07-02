@@ -1,7 +1,5 @@
 package com.github.restart1025.srs.domain;
 
-import java.io.Serializable;
-
 public class TranscriptEntity{
 	private int id;
 	private double grade;

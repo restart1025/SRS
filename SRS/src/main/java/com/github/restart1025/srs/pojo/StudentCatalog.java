@@ -1,6 +1,5 @@
 package com.github.restart1025.srs.pojo;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.restart1025.srs.domain.Section;
 import com.github.restart1025.srs.domain.Student;
-import com.github.restart1025.srs.domain.Transcript;
 import com.github.restart1025.srs.mapper.StudentDao;
 
 @Component
@@ -30,7 +28,7 @@ public class StudentCatalog{
 	@Autowired
 	private StudentDao studentDao;
 	@Autowired
-	private Transcript transcript;
+	private TranscriptCatalog transcript;
 	@PostConstruct
 	public void init(){
 		ArrayList<Student> list=load();

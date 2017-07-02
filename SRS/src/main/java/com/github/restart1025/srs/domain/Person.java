@@ -1,7 +1,5 @@
 package com.github.restart1025.srs.domain;
 
-import java.io.Serializable;
-
 public abstract class Person{
 	private String ssn;
 

@@ -1,7 +1,7 @@
 package com.github.restart1025.srs.pojo;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 

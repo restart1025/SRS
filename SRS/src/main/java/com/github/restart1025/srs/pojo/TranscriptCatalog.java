@@ -1,6 +1,5 @@
-package com.github.restart1025.srs.domain;
+package com.github.restart1025.srs.pojo;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,13 +11,14 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.restart1025.srs.domain.TranscriptEntity;
 import com.github.restart1025.srs.mapper.TranscriptDao;
 
 @Component
 @Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
-public class Transcript{
+public class TranscriptCatalog{
 	private HashMap<String,ArrayList<TranscriptEntity>> map;
-	public Transcript() {
+	public TranscriptCatalog() {
 		super();
 		map=new HashMap<String,ArrayList<TranscriptEntity>>();
 	}

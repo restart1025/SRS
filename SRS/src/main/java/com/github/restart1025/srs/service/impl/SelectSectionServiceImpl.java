@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.github.restart1025.srs.domain.Section;
 import com.github.restart1025.srs.domain.Student;
-import com.github.restart1025.srs.domain.Transcript;
 import com.github.restart1025.srs.domain.TranscriptEntity;
 import com.github.restart1025.srs.pojo.SectionCatalog;
 import com.github.restart1025.srs.pojo.StudentCatalog;
+import com.github.restart1025.srs.pojo.TranscriptCatalog;
 import com.github.restart1025.srs.service.SelectSectionService;
 import com.github.restart1025.srs.specification.Specification;
 @Service("selectSectionService")
@@ -24,7 +24,7 @@ public class SelectSectionServiceImpl implements SelectSectionService {
 	@Autowired
 	private StudentCatalog studentCatalog;
 	@Autowired  
-	private Transcript transcript;
+	private TranscriptCatalog transcript;
 	@Override
 	public String selectSection(String ssn, int sectionNo) {
 		// TODO Auto-generated method stub
