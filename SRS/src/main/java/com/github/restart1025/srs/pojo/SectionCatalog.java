@@ -2,6 +2,8 @@ package com.github.restart1025.srs.pojo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -20,54 +22,67 @@ import com.github.restart1025.srs.mapper.TranscriptDao;
 @Component
 @Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
 public class SectionCatalog{
-	private ArrayList<Section> sectionCatalog;
-	private HashMap<String,Section> map;
-	public SectionCatalog(ArrayList<Section> sectionCatalog,HashMap<String,Section> map) {
+	
+	private List<Section> sectionCatalog;
+	private Map<String,Section> map;
+	
+	public SectionCatalog(ArrayList<Section> sectionCatalog, HashMap<String,Section> map) {
 		super();
-		sectionCatalog =new ArrayList<Section>();
-		map=new HashMap<String,Section>();
+		sectionCatalog = new ArrayList<Section>();
+		map = new HashMap<String, Section>();
 	}
 	
 	public SectionCatalog() {
 		super();
+		sectionCatalog = new ArrayList<Section>();
+		map = new HashMap<String, Section>();
 	}
+	
 	@Autowired
 	private SectionDao sectionDao;
+	
 	@Autowired
 	private TranscriptDao transcriptDao;
+	
 	@PostConstruct
-	public void init(){
-		ArrayList<Section> list=load();
-		this.sectionCatalog=list;
-		int size=list.size();
-		HashMap<String,Section> hashmap=new HashMap<String,Section>();
-		//当直接map.put...时出错，加一个hashmap当介质没问题
-		for(int i=0;i<size;i++){
-			hashmap.put(String.valueOf(list.get(i).getSectionNo()), list.get(i));
+	public void init()
+	{
+		this.sectionCatalog = load();
+		
+		int size = sectionCatalog.size();
+		
+		for(int i = 0; i < size; i++)
+		{
+			this.map.put(String.valueOf(sectionCatalog.get(i).getSectionNo()), sectionCatalog.get(i));
 		}
-		this.map=hashmap;
 	}
-	private ArrayList<Section> load() {
-		ArrayList<Section> list=sectionDao.load();
-		return list;
+	/**
+	 * 加载数据
+	 * @return
+	 */
+	private ArrayList<Section> load() 
+	{
+		return sectionDao.load();
 	}
 
 	@PreDestroy
 	public void preDestroy(){
-		//在此执行批量更新数据库		
+			
 	}
-	public void sectionAddEnrolledStudent(Student student, Section section) {
-		map.get(String.valueOf(section.getSectionNo())).getEnrolledStudents().add(student);
-		/*try{*/
-			String ssn=student.getSsn();
-			int sectionNo=section.getSectionNo();
-			transcriptDao.add(ssn, sectionNo);
-//		}catch(Exception e){
-//			System.out.println("向section_student数据库里面插入出错");
-//		}
+	/**
+	 * 课程中增加选课学生
+	 * @param student
+	 * @param section
+	 */
+	public void sectionAddEnrolledStudent(Student student, Section section) 
+	{
+		
+		map.get( String.valueOf(section.getSectionNo()) ).getEnrolledStudents().add(student);
+		
+		transcriptDao.add(student.getSsn(), section.getSectionNo());
 		
 	}
-	public ArrayList<Section> getSectionCatalog() {
+	public List<Section> getSectionCatalog() {
 		return sectionCatalog;
 	}
 
@@ -75,7 +90,7 @@ public class SectionCatalog{
 		this.sectionCatalog = sectionCatalog;
 	}
 
-	public HashMap<String, Section> getMap() {
+	public Map<String, Section> getMap() {
 		return map;
 	}
 

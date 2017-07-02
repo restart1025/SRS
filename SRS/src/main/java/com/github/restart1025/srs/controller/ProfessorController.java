@@ -1,8 +1,5 @@
 package com.github.restart1025.srs.controller;
 
-import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -25,30 +22,34 @@ public class ProfessorController {
 	
 	@RequestMapping(value="/addProfessor")
 	@ResponseBody
-	public boolean addProfessor(@ModelAttribute Professor professor){
-		boolean result=professorService.addProfessor(professor);		
-		return result;
+	public boolean addProfessor(@ModelAttribute Professor professor)
+	{
+		return professorService.addProfessor(professor);		
 	}
 	
 	@RequestMapping(value="/queryProfessor")
 	@ResponseBody
-	public  Object queryProfessor(){
-		List<Professor> result=professorService.queryProfessor();
-		return result;
+	public  Object queryProfessor()
+	{
+		
+		return professorService.queryProfessor();
+		
 	}
 	
 	@RequestMapping(value="/deleteProfessor")
 	@ResponseBody
-	public boolean deleteProfessor(String ssn,ModelAndView mv){
-		boolean result=professorService.deleteProfessor(ssn);
-		return result;
+	public boolean deleteProfessor(String ssn,ModelAndView mv)
+	{
+		
+		return professorService.deleteProfessor(ssn);
+		
 	}
 	
 	@RequestMapping(value="/updateProfessor")
 	@ResponseBody
 	public boolean updateProfessor(ModelAndView mv,
-			@ModelAttribute Professor professor){
-		boolean result=professorService.updateProfessor(professor);
-		return result;
+			@ModelAttribute Professor professor)
+	{
+		return professorService.updateProfessor(professor);
 	}
 }

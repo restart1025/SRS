@@ -1,6 +1,7 @@
 package com.github.restart1025.srs.domain;
 
 public class TranscriptEntity{
+	
 	private int id;
 	private double grade;
 	private Student student;
@@ -20,13 +21,9 @@ public class TranscriptEntity{
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
-
 	public double getGrade() {
 		return grade;
 	}
@@ -40,14 +37,10 @@ public class TranscriptEntity{
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-
 	public Section getSection() {
 		return section;
 	}
-
 	public void setSection(Section section) {
 		this.section = section;
 	}
-
-	
 }

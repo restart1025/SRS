@@ -2,6 +2,8 @@ package com.github.restart1025.srs.pojo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -17,40 +19,52 @@ import com.github.restart1025.srs.mapper.TranscriptDao;
 @Component
 @Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
 public class TranscriptCatalog{
-	private HashMap<String,ArrayList<TranscriptEntity>> map;
+	
+	private Map<String, ArrayList<TranscriptEntity>> map;
+	
 	public TranscriptCatalog() {
 		super();
-		map=new HashMap<String,ArrayList<TranscriptEntity>>();
+		map=new HashMap<String, ArrayList<TranscriptEntity>>();
 	}
+	
 	@PostConstruct
 	public void init(){
-		ArrayList<TranscriptEntity> list=load();
-		//int size=list.size();
-		HashMap<String,ArrayList<TranscriptEntity>> hashmap=new HashMap<String,ArrayList<TranscriptEntity>>();
-		for(TranscriptEntity t:list){
+		
+		List<TranscriptEntity> list = load();
+		
+		for(TranscriptEntity t:list)
+		{
 			try {
-				String ssn=t.getStudent().getSsn();
-				if(hashmap.get(ssn)==null){
-					ArrayList<TranscriptEntity> transcript=new ArrayList<TranscriptEntity>();
+				String ssn = t.getStudent().getSsn();
+				
+				if( map.get(ssn) == null )
+				{
+					
+					ArrayList<TranscriptEntity> transcript = new ArrayList<TranscriptEntity>();
 					transcript.add(t);
-					hashmap.put(ssn, transcript);
+					map.put( ssn, transcript );
+					
 				}else{
-					hashmap.get(ssn).add(t);
+					
+					map.get(ssn).add(t);
+					
 				}
 			}catch (Exception e){
 				continue;
 			}
 
 		}
-		this.map=hashmap;
 	}
+
 	@Autowired
 	private TranscriptDao transcriptDao;
-	private ArrayList<TranscriptEntity> load() {
-		ArrayList<TranscriptEntity> list=transcriptDao.load();
-		return list;
+	
+	private ArrayList<TranscriptEntity> load() 
+	{
+		return transcriptDao.load();
 	}
-	public HashMap<String, ArrayList<TranscriptEntity>> getMap() {
+	
+	public Map<String, ArrayList<TranscriptEntity>> getMap() {
 		return map;
 	}
 	

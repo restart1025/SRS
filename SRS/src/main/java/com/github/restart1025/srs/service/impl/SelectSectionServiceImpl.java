@@ -16,23 +16,28 @@ import com.github.restart1025.srs.service.SelectSectionService;
 import com.github.restart1025.srs.specification.Specification;
 @Service("selectSectionService")
 public class SelectSectionServiceImpl implements SelectSectionService {
+	
 	@Autowired
 	@Qualifier("selectionSectionSpecification")
 	private Specification<Section> selectionSectionSpecification;
+	
 	@Autowired
 	private SectionCatalog sectionCatalog;
+	
 	@Autowired
 	private StudentCatalog studentCatalog;
+	
 	@Autowired  
 	private TranscriptCatalog transcript;
+	
 	@Override
 	public String selectSection(String ssn, int sectionNo) {
-		// TODO Auto-generated method stub
 		Section section=sectionCatalog.getMap().get(String.valueOf(sectionNo));
 		Student student=studentCatalog.getMap().get(ssn);
 		
 		String result=selectionSectionSpecification.validate(student,section);
-		if(result==null){//为null代表什么否定都没有触发，可选
+		if(result == null)
+		{
 			sectionCatalog.sectionAddEnrolledStudent(student,section);
 			studentCatalog.studentAddAttends(student,section);
 			TranscriptEntity entity=new TranscriptEntity(0.0,student,section);
@@ -43,9 +48,10 @@ public class SelectSectionServiceImpl implements SelectSectionService {
 		}
 		return result; 
 	}
+	
 	@Override
-	public ArrayList<Student> queryEnrolledStudents(String sectionNo) {
-		// TODO Auto-generated method stub
+	public ArrayList<Student> queryEnrolledStudents(String sectionNo) 
+	{
 		Section section=sectionCatalog.getMap().get(sectionNo);
 		int size=section.getEnrolledStudents().size();
 		ArrayList<Student> list=new ArrayList<Student>();

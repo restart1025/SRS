@@ -7,7 +7,6 @@ public abstract class Person{
 	
 	public Person() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Person(String ssn, String name) {

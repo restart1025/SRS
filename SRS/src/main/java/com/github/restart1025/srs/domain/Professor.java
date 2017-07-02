@@ -3,9 +3,10 @@ package com.github.restart1025.srs.domain;
 import java.util.ArrayList;
 
 public class Professor extends Person{
+	
 	private String title;//职称
-	private String department;//哪个学院
-	private ArrayList<Section> teaches;//教了那些课
+	private String department;//学院
+	private ArrayList<Section> teaches;//所教课程
 	
 	public Professor() {
 		super();
@@ -19,6 +20,7 @@ public class Professor extends Person{
 		this.department = department;
 		teaches=new ArrayList<Section>();
 	}
+	
 	public String getTitle() {
 		return title;
 	}

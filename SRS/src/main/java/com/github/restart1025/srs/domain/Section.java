@@ -12,9 +12,11 @@ public class Section {
 	private Course course;//课程
 	private Professor professor;//教师
 	private ArrayList<Student> enrolledStudents;//注册学生HashMap存储学生对象引用
+	
 	public Section() {
 		super();
 	}
+	
 	public Section(int sectionNo, String dayOfWeek, String timeOfDay, String room, int capacity, Course course,
 			Professor professor) {
 		super();
@@ -27,6 +29,7 @@ public class Section {
 		this.professor = professor;
 		this.enrolledStudents = new ArrayList<Student>();
 	}
+	
 	public int getSectionNo() {
 		return sectionNo;
 	}

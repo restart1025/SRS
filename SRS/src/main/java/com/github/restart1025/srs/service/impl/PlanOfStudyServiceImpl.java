@@ -1,26 +1,27 @@
 package com.github.restart1025.srs.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.restart1025.srs.domain.Student;
-import com.github.restart1025.srs.mapper.StudentDao;
-import com.github.restart1025.srs.service.LoginService;
+import com.github.restart1025.srs.domain.Course;
+import com.github.restart1025.srs.mapper.PlanOfStudyDao;
+import com.github.restart1025.srs.service.PlanOfStudyService;
 
 @Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
-@Service("loginService")
-public class LoginServiceImpl implements LoginService {
-	
+@Service("planOfStudyService")
+public class PlanOfStudyServiceImpl implements PlanOfStudyService {
+
 	@Autowired
-	private StudentDao studentDao;
+	private PlanOfStudyDao planOfStudyDao;
 	
 	@Override
-	public Student studentLogin(String ssn, String password) {
-		Student stu=studentDao.selectBySsnAndPassword(ssn, password);
-		return stu;
+	public List<Course> queryPlanOfStudy(String ssn) {
+		return planOfStudyDao.queryPlanOfStudy(ssn);
 	}
 
 }

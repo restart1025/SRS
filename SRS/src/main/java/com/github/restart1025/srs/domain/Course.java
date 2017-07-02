@@ -10,7 +10,6 @@ public class Course{
 	
 	public Course() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Course(String number, String name, double credits, ArrayList<Course> prevCourse) {
 		super();

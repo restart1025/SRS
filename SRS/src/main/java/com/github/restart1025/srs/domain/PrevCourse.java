@@ -1,11 +1,12 @@
 package com.github.restart1025.srs.domain;
 
 public class PrevCourse{
+	
 	private Course course;
 	private Course prevCourse;
+	
 	public PrevCourse() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public PrevCourse(Course course, Course prevCourse) {

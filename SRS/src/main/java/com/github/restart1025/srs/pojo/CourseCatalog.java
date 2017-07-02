@@ -2,6 +2,8 @@ package com.github.restart1025.srs.pojo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -14,43 +16,53 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.restart1025.srs.domain.Course;
 import com.github.restart1025.srs.mapper.CourseDao;
+
 @Component
 @Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
 public class CourseCatalog{
-	private ArrayList<Course> courseCatalog;
-	private HashMap<String,Course> map;
+	
+	private List<Course> courseCatalog;
+	private Map<String,Course> map;
+	
 	public CourseCatalog() {
 		super();
-		courseCatalog=new ArrayList<Course>();
-		map=new HashMap<String,Course>();
-		
+		courseCatalog = new ArrayList<Course>();
+		map = new HashMap<String,Course>();
 	}
+	
 	@Autowired
 	private CourseDao courseDao;
+	
 	@PostConstruct
 	public void init(){
-		ArrayList<Course> list=load();
-		this.courseCatalog=list;
-		int size=list.size();
-		HashMap<String,Course> hashmap=new HashMap<String,Course>();
-		for(int i=0;i<size;i++){
-			hashmap.put(list.get(i).getNumber(), list.get(i));			
+		
+		this.courseCatalog = load();
+		
+		int size = courseCatalog.size();
+		
+		for(int i = 0; i < size; i++)
+		{
+			this.map.put(courseCatalog.get(i).getNumber(), courseCatalog.get(i));			
 		}
-		this.map=hashmap;
 	}
+	
 	@PreDestroy
 	public void preDestroy(){
-		//在此执行批量更新数据库
 		
 	}
-	/*加载数据库中数据*/
+	/**
+	 * 加载数据
+	 * @return
+	 */
 	private ArrayList<Course> load() {	
-		ArrayList<Course> list=courseDao.load();
-		return list;
+		return courseDao.load();
 	}
-	/*添加课程*/
+	/**
+	 * 添加课程
+	 * @param course
+	 * @return
+	 */
 	public boolean addCourse(Course course) {
-		// TODO Auto-generated method stub
 		courseCatalog.add(course);
 		map.put(course.getNumber(), course);
 		try{
@@ -68,31 +80,42 @@ public class CourseCatalog{
 		}
 		return true;
 	}
-	public ArrayList<Course> getCourseCatalog() {
-		return courseCatalog;
-	}
+	/**
+	 * 删除课程
+	 * @param number
+	 * @return
+	 */
 	public boolean deleteCourse(String number) {
-		// TODO Auto-generated method stub
+		
 		try{
-			for(Course course:courseCatalog){
-				if(course.getNumber().equals(number)){
+			
+			for(Course course:courseCatalog)
+			{
+				if( course.getNumber().equals(number) )
+				{
 					courseCatalog.remove(course);
 					break;
 				}
-			} 
+			}
+			
 			courseDao.deleteCourseByNumber(number);
+			
 		}catch( Exception e){
+			
 			System.out.println(e);
 			return false;
+			
 		}
 		return true;
 	}
-	public HashMap<String, Course> getMap() {
+	public Map<String, Course> getMap() {
 		return map;
 	}
-	public void setMap(HashMap<String, Course> map) {
+	public void setMap(Map<String, Course> map) {
 		this.map = map;
 	}
-
+	public List<Course> getCourseCatalog() {
+		return courseCatalog;
+	}
 	
 }

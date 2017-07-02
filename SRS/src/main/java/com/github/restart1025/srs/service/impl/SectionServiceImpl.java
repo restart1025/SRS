@@ -13,15 +13,21 @@ import com.github.restart1025.srs.pojo.SectionCatalog;
 import com.github.restart1025.srs.service.SectionService;
 @Service("sectionService")
 public class SectionServiceImpl implements SectionService {
+	
 	@Autowired
 	private SectionCatalog sectionCatalog;
+	
 	@Override
-	public List<Map<String, String>> querySection() {
-		// TODO Auto-generated method stub
+	public List<Map<String, String>> querySection() 
+	{
 		List<Section> list=sectionCatalog.getSectionCatalog();
+		
 		int size=list.size();
+		
 		List<Map<String, String>> result=new ArrayList<Map<String, String>>();
-		for(int i=0;i<size;i++){
+		
+		for(int i = 0; i < size; i++)
+		{
 			Map<String, String> map=new HashMap<String, String>();
 			 map.put("sectionNo", String.valueOf(list.get(i).getSectionNo()));
 			 map.put("name", list.get(i).getCourse().getName());

@@ -1,9 +1,5 @@
 package com.github.restart1025.srs.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +36,17 @@ public class SelectSectionController {
 	private SelectSectionService selectSectionService;
 	
 	@RequestMapping("/loginForm")
-	public ModelAndView login(String ssn,String password,
-			 ModelAndView mv,
+	public ModelAndView login(String ssn, String password, ModelAndView mv,
 			 HttpSession session){
+		
 		student = loginService.studentLogin(ssn,password);
-		if(student != null){
+		
+		if(student != null)
+		{
 			session.setAttribute("student", student);
 			mv.setViewName("index");
-		}else{
+		}else
+		{
 			mv.addObject("message", "登录名或密码错误，请重新输入");
 			mv.setViewName("login");
 		}
@@ -60,11 +59,11 @@ public class SelectSectionController {
 	 */
 	@RequestMapping("/querySection")
 	@ResponseBody
-	public Object querySection(){
-		List<Map<String,String>> list=new ArrayList<Map<String,String>>();
-		list=sectionService.querySection();
-		return list;
+	public Object querySection()
+	{
+		return sectionService.querySection();
 	}
+	
 	/**
 	 * 学生选课
 	 * @param sectionNo
@@ -72,24 +71,20 @@ public class SelectSectionController {
 	 */
 	@RequestMapping(value="/selectSection",produces="text/html;charset=UTF-8")
 	@ResponseBody  	  
-	public Object selectSection(int sectionNo,HttpSession session) {
-		/*String ssn=student.getSsn();*/
-		/*String ssn="09143604";*/
+	public Object selectSection(int sectionNo, HttpSession session) 
+	{
 		Student student=(Student)session.getAttribute("student");
-		String ssn=student.getSsn();
-		String result=selectSectionService.selectSection(ssn,sectionNo);
-		return result;
+		return selectSectionService.selectSection(student.getSsn(), sectionNo);
 	}
+	
 	/**
 	 * 查看某门课有哪些学生选了
 	 */
 	@RequestMapping(value="/queryEnrolledStudents")
 	@ResponseBody
-	public Object queryEnrolledStudents(@RequestParam("sectionNo") Integer sectionNo, Model model){
-		/*int sectionNo=2;*/
-		ArrayList<Student> enrolledStudents=new ArrayList<Student> ();
-		enrolledStudents=selectSectionService.queryEnrolledStudents(String.valueOf( sectionNo ));
-		return enrolledStudents;
+	public Object queryEnrolledStudents(@RequestParam("sectionNo") Integer sectionNo, Model model)
+	{
+		return selectSectionService.queryEnrolledStudents(String.valueOf( sectionNo ));
 	}
 	
 	

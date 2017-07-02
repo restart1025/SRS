@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.restart1025.srs.dao.provider.ProfessorDynaSqlProvider;
 import com.github.restart1025.srs.domain.Professor;
+
 @Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
 public interface ProfessorDao {
 	/**

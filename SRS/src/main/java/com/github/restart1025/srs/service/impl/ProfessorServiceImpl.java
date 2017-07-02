@@ -1,16 +1,16 @@
 package com.github.restart1025.srs.service.impl;
 
-import java.util.ArrayList;
-
-import com.github.restart1025.srs.domain.Professor;
-import com.github.restart1025.srs.pojo.ProfessorCatalog;
-import com.github.restart1025.srs.service.ProfessorService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.github.restart1025.srs.domain.Professor;
+import com.github.restart1025.srs.pojo.ProfessorCatalog;
+import com.github.restart1025.srs.service.ProfessorService;
 
 @Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
 @Service("professorService")
@@ -25,18 +25,15 @@ public class ProfessorServiceImpl implements ProfessorService {
 	}
 	@Override
 	public boolean deleteProfessor(String ssn) {
-		// TODO Auto-generated method stub
 		boolean result=professorCatlog.deleteProfessor(ssn);
 		return result;
 	}
 	@Override
-	public ArrayList<Professor> queryProfessor() {
-		// TODO Auto-generated method stub
+	public List<Professor> queryProfessor() {
 		return professorCatlog.getProfessorCatalog();
 	}
 	@Override
 	public boolean updateProfessor(Professor professor) {
-		// TODO Auto-generated method stub
 		boolean result=professorCatlog.updateProfessor(professor);
 		return result;
 	}

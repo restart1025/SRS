@@ -19,17 +19,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class TranscriptController {
+	
 	@Autowired
 	private TranscriptService transcriptService;
 	
 	
 	@RequestMapping(value="queryTranscript")
 	@ResponseBody
-	public Object queryTranscript(HttpSession session){
-		Student student=(Student) session.getAttribute("student");
-		String ssn=student.getSsn();
-		List<Map<String,String>> list=new ArrayList<Map<String,String>>();
-		list=transcriptService.queryTranscript(ssn);
+	public Object queryTranscript(HttpSession session)
+	{
+		Student student = (Student) session.getAttribute("student");
+		
+		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+		
+		list = transcriptService.queryTranscript(student.getSsn());
+		
 		return list;
 	}
 	

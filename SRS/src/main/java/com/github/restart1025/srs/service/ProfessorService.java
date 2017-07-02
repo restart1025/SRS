@@ -1,6 +1,6 @@
 package com.github.restart1025.srs.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.github.restart1025.srs.domain.Professor;
 
@@ -16,7 +16,7 @@ public interface ProfessorService {
 	 * 查询教师
 	 * @return
 	 */
-	ArrayList<Professor> queryProfessor();
+	List<Professor> queryProfessor();
 	/**
 	 * 删除教师
 	 * @param ssn

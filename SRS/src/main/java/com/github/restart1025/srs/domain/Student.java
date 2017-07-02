@@ -13,7 +13,7 @@ public class Student extends Person{
 	private String major;//专业
 	private ArrayList<TranscriptEntity> transcript;//成绩单
 	private ArrayList<Section> attends;//本学期选修课程
-	private ArrayList<Course> planOfStudy;//学生课表
+	private ArrayList<Course> planOfStudy;//学生培养计划
 	private String password;
 	public Student() {
 		super();
@@ -36,9 +36,7 @@ public class Student extends Person{
 		planOfStudy=new ArrayList<Course>();
 		transcript = new ArrayList<TranscriptEntity>();
 	}
-	/**
-	 * 方法
-	 */
+	
 	public String getDegree() {
 		return degree;
 	}
